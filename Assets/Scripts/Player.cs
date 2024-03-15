@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Enemy")) {
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Boss")) {
             Destroy(gameObject);
         }
         if(other.gameObject.CompareTag("Coin")) {

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         coin++;
         text.SetText(coin.ToString());
 
-        if(coin % 30 == 0) {
+        if(coin % 10 == 0) {
             Player player = FindAnyObjectByType<Player>();
             if(player != null) {
                 player.Upgrade();
