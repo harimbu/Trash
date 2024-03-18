@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    private float minY = -7f;
     [SerializeField] private float hp = 1f;
     [SerializeField] GameObject coin;
 
@@ -16,23 +15,25 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         transform.position += moveSpeed * Time.deltaTime * Vector3.down;
-        if(transform.position.y < minY) {
+        if(transform.position.y < -7) {
             Destroy(gameObject);
-        }        
-
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Weapon")) {
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
-            hp -= weapon.demage;
+            hp -= weapon.damage;
             if(hp <= 0) {
+                if(gameObject.CompareTag("Boss")) {
+                    GameManager.instance.setGameOver();
+                }
                 Destroy(gameObject);
                 Instantiate(coin, transform.position, Quaternion.identity);
             }
 
             Destroy(other.gameObject);
-        }   
+        }
     }
 }

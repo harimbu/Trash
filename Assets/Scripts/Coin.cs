@@ -4,27 +4,22 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private float minY = -7f;
-
     void Start()
     {
         Jump();
     }
 
     void Jump() {
-        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-
-        float randomJumpForce = Random.Range(4f, 8f);
-        Vector2 jumpVelocity = Vector2.up * randomJumpForce;
+        Rigidbody2D rgbody = GetComponent<Rigidbody2D>();
+        float randomJump = Random.Range(4f, 8f);
+        Vector2 jumpVelocity = Vector2.up * randomJump;
         jumpVelocity.x = Random.Range(-2f, 2f);
-        rigidBody.AddForce(jumpVelocity, ForceMode2D.Impulse);
+        rgbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
-    void Update()
-    {
-        if(transform.position.y < minY) {
+    void Update() {
+        if(transform.position.y < -7) {
             Destroy(gameObject);
-        }        
-
+        }
     }
 }

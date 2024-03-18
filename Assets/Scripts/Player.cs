@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float moveX = Mathf.Clamp(mousePos.x, -2.3f, 2.3f);
-        transform.position = new Vector3(moveX, transform.position.y, 0); 
+        transform.position = new Vector3(moveX, transform.position.y, 0);
 
-        Shoot();
+        if(GameManager.instance.isGameOver == false) {
+            Shoot();
+        }
     }
 
     void Shoot() {
@@ -30,15 +32,17 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Boss")) {
             Destroy(gameObject);
+            GameManager.instance.setGameOver();
         }
+
         if(other.gameObject.CompareTag("Coin")) {
-            GameManager.instance.IncreaseCoin();
             Destroy(other.gameObject);
+            GameManager.instance.IncreaseCoin();            
         }
     }
 
     public void Upgrade() {
-        weaponIndex++;
+        weaponIndex ++;
         if(weaponIndex >= weapons.Length) {
             weaponIndex = weapons.Length - 1;
         }
