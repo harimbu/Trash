@@ -10,16 +10,19 @@ public class Coin : MonoBehaviour
     }
 
     void Jump() {
-        Rigidbody2D rgbody = GetComponent<Rigidbody2D>();
-        float randomJump = Random.Range(4f, 8f);
-        Vector2 jumpVelocity = Vector2.up * randomJump;
-        jumpVelocity.x = Random.Range(-2f, 2f);
-        rgbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
+        Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+        Vector2 jumpVelocity = new Vector2(Random.Range(-2f, 2f), Random.Range(4f, 8f));
+        rigidbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
-    void Update() {
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
         if(transform.position.y < -7) {
             Destroy(gameObject);
-        }
+        }        
     }
+
 }
