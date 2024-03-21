@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
             hp -= weapon.damage;
             if(hp <= 0) {
+                if(gameObject.CompareTag("Boss")) {
+                    GameManager.instance.SetGameOver();
+                }
                 Destroy(gameObject);
                 Instantiate(coin, transform.position, Quaternion.identity);
             }
