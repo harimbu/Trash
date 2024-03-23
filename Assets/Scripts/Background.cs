@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    private float moveSpeed = 5f;
+    private float moveSpeed = 10f;
 
     void Update()
     {

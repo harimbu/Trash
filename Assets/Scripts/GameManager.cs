@@ -7,26 +7,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    [SerializeField] private TextMeshProUGUI score;
-    public int coin = 0;
-    [SerializeField] GameObject gameOverPanel;    
+
+    [SerializeField] private TextMeshProUGUI text;
+    private int coin = 0;
+
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Awake()
     {
         if(instance == null) {
             instance = this;
-        }        
+        }
     }
 
     public void IncreaseCoin() {
         coin++;
-        score.SetText(coin.ToString());
+        text.SetText(coin.ToString());
 
         if(coin % 10 == 0) {
             Player player = FindAnyObjectByType<Player>();
-            if(player != null) {
-                player.Upgrade();
-            }
+            player.Upgrade();
         }
     }
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if(enemySpawner != null) {
             enemySpawner.StopEnemyRoutine();
         }
-
+        
         Invoke("ShowGamePanel", 1f);
     }
 
@@ -46,5 +46,4 @@ public class GameManager : MonoBehaviour
     public void PlayAgain() {
         SceneManager.LoadScene("SampleScene");
     }
-
 }

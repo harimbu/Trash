@@ -8,15 +8,15 @@ public class Player : MonoBehaviour
     private int weaponIndex = 0;
     [SerializeField] private Transform shootTransform;
     [SerializeField] private float shootInterval = 0.05f;
-    float lastShotTime = 0;
+    private float lastShotTime = 0;
 
     void Update()
     {
-        Vector3 mousePox = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float moveX = Mathf.Clamp(mousePox.x, -2.3f, 2.3f);
-        transform.position = new Vector3(moveX, transform.position.y, 0);     
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float moveX = Mathf.Clamp(mousePos.x, -2.3f, 2.3f);
+        transform.position = new Vector3(moveX, transform.position.y, 0);   
 
-        Shoot();           
+        Shoot();     
     }
 
     void Shoot() {
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
             lastShotTime = Time.time;
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Boss")) {
@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
         }
 
         if(other.gameObject.CompareTag("Coin")) {
-            Destroy(other.gameObject);
             GameManager.instance.IncreaseCoin();
         }
     }
@@ -45,4 +44,9 @@ public class Player : MonoBehaviour
             weaponIndex = weapons.Length - 1;
         }
     }
+
+    public void StopGame() {
+        Destroy(gameObject);
+    }
+
 }
